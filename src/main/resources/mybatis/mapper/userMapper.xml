@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lixing.docker.dockerboot.mapper.UserMapper" >
+    <!-- 这里使用resultMap的高级映射-->
+    <resultMap id="BaseResultMap" type="com.lixing.docker.dockerboot.entity.User" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="ctm" property="ctm" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 创建一个够公用的Sql片段-->
+    <sql id="Base_Column_List" >
+        id, username, age, ctm
+    </sql>
+
+    <select id="getUserList" resultMap="BaseResultMap"  >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_user
+    </select>
+    <!--方法一实现ResultMap来处理 -->
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tb_user
+        WHERE id = #{id}
+    </select>
+    <!-- 起别名的方式-->
+
+    <insert id="add" parameterType="com.lixing.docker.dockerboot.entity.User" >
+        INSERT INTO
+        tb_user
+        (username,age,ctm)
+        VALUES
+        (#{username}, #{age}, now())
+    </insert>
+
+    <update id="update" parameterType="com.lixing.docker.dockerboot.entity.User" >
+        UPDATE
+        tb_user
+        SET
+        username = #{username},age = #{age}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer" >
+        DELETE FROM
+        tb_user
+        WHERE
+        id = #{id}
+    </delete>
+
+</mapper>
