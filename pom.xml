@@ -129,6 +129,12 @@
 			<artifactId>spring-boot-admin-server-ui</artifactId>
 			<version>1.5.6</version>
 		</dependency>
+		<!-- HttpClient-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
      	</dependencies>
 	<build>
 		<finalName>dockerboot</finalName>

@@ -17,3 +17,4 @@
 - SpringBoot返回JSON对象.JackJson.@ResponseBody.封装类.@jsonignore(忽略json返回)以及@JsonFormat格式化注解.@JsonInclude(Include.NON_NULL)
 - SpringBoot配置拦截器.使用JAVA注解@Confirguration,然后继承WebMvdConfigurationAdapter.然后重写方法addInterceptors方法.然后配置功能拦截器即可.
 - SpringBoot整合Redis缓存.添加依然,然后配置redis属性.注入依赖StringRedisTemplate.
+- SpringBoot整合HttpClient模拟浏览器访问站点.
