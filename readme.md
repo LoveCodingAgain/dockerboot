@@ -18,3 +18,4 @@
 - SpringBoot配置拦截器.使用JAVA注解@Confirguration,然后继承WebMvdConfigurationAdapter.然后重写方法addInterceptors方法.然后配置功能拦截器即可.
 - SpringBoot整合Redis缓存.添加依然,然后配置redis属性.注入依赖StringRedisTemplate.
 - SpringBoot整合HttpClient模拟浏览器访问站点.
+- https://www.cnblogs.com/javabg/p/8567790.html.
