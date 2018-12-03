@@ -1,6 +1,7 @@
 package com.lixing.docker.dockerboot.controller;
 import com.lixing.docker.dockerboot.service.UserService;
 import com.lixing.docker.dockerboot.entity.User;
+import com.lixing.docker.dockerboot.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
@@ -23,7 +24,7 @@ public class UserController {
      */
     @RequestMapping(value="user/{id}",method=RequestMethod.GET)
     public User getUser(@PathVariable(value = "id") Integer id) {
-        return userService.getUserById(id);
+        return userService.getUserById(String.valueOf(id));
     }
 
     /**
@@ -46,7 +47,7 @@ public class UserController {
         User user = new User();
         user.setUsername("优酷");
         user.setAge(22);
-        user.setCtm(new Date());
+        user.setCtm(DateUtil.dateUtil(new Date()));
         return userService.add(user);
     }
 
@@ -65,7 +66,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/userdelete/{id}")
-    public int deleteUser(@PathVariable(value="id") Integer id){
+    public int deleteUser(@PathVariable(value = "id") String id) {
         return userService.delete(id);
     }
 

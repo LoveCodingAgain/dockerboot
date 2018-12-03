@@ -6,7 +6,7 @@
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="username" property="username" jdbcType="VARCHAR" />
         <result column="age" property="age" jdbcType="INTEGER" />
-        <result column="ctm" property="ctm" jdbcType="TIMESTAMP"/>
+        <result column="ctm" property="ctm" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!-- 创建一个够公用的Sql片段-->

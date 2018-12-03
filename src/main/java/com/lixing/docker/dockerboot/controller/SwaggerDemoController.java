@@ -1,5 +1,4 @@
 package com.lixing.docker.dockerboot.controller;
-
 import com.lixing.docker.dockerboot.service.UserService;
 import com.lixing.docker.dockerboot.entity.User;
 import io.swagger.annotations.Api;
@@ -27,6 +26,6 @@ public class SwaggerDemoController {
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Integer")
     @RequestMapping(value="user/{id}",method= RequestMethod.GET)
     public User getUser(@PathVariable(value = "id") Integer id) {
-        return userService.getUserById(id);
+        return userService.getUserById(String.valueOf(id));
     }
 }

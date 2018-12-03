@@ -3,9 +3,11 @@ import com.lixing.docker.dockerboot.service.UserService;
 import com.lixing.docker.dockerboot.entity.User;
 import com.lixing.docker.dockerboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
 /**
  * title： com.lx.docker.dockerboot.service.impl
  * @author： lixing
@@ -18,8 +20,14 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User getUserById(Integer id) {
-        return userMapper.getUserById(id);
+    @Cacheable(value = "UserCache", keyGenerator = "userKeyGenerator")
+    public User getUserById(String id) {
+        System.out.println("开始查询");
+        System.out.println("为id=" + id + "的数据做了缓存!");
+        Integer userId = Integer.valueOf(id);
+        User user = userMapper.getUserById(Integer.valueOf(id));
+        System.out.println("结束查询");
+        return user;
     }
 
     @Override
@@ -33,13 +41,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CachePut(value = "UserCache", keyGenerator = "userKeyGenerator")
     public int update(User user) {
       return  userMapper.update(user);
     }
 
     @Override
-    public int delete(Integer id) {
-        return userMapper.delete(id);
+    @CacheEvict(value = "UserCache", key = "#id")
+    public int delete(String id) {
+        System.out.println("删除了id=" + id + "的数据缓存!");
+        return userMapper.delete(Integer.valueOf(id));
     }
 
 }

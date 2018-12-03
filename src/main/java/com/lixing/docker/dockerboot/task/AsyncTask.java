@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
  */
 @Component
 public class AsyncTask {
-     @Async
+    @Async
     public Future<Boolean> task1(){
          Instant start=Instant.now();
          try {

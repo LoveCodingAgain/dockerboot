@@ -16,6 +16,9 @@
 - SpringBoot的配置文件格式yml注意事项.url映射保证唯一.
 - SpringBoot返回JSON对象.JackJson.@ResponseBody.封装类.@jsonignore(忽略json返回)以及@JsonFormat格式化注解.@JsonInclude(Include.NON_NULL)
 - SpringBoot配置拦截器.使用JAVA注解@Confirguration,然后继承WebMvdConfigurationAdapter.然后重写方法addInterceptors方法.然后配置功能拦截器即可.
-- SpringBoot整合Redis缓存.添加依然,然后配置redis属性.注入依赖StringRedisTemplate.
+- SpringBoot整合Redis缓存,添加依赖,然后配置redis属性,注入依赖StringRedisTemplate.JedisAPI五种数据类型.
 - SpringBoot整合HttpClient模拟浏览器访问站点.
-- https://www.cnblogs.com/javabg/p/8567790.html.
+- SpringBoot返回Xml格式数据.
+- Redis的客户端使用命令：./redis-cli  auth password.
+- IDEA安装实体类序列化插件.
+- 应用项目启动图标设置.这个网站设置,复制到resources目录即可,链接如下:http://patorjk.com/software/taag/

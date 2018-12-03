@@ -14,7 +14,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    User getUserById(Integer id);
+    User getUserById(String id);
 
     /**
      * 返回用户列表
@@ -40,6 +40,6 @@ public interface UserService {
      * @param id
      * @return
      */
-    int delete(Integer id);
+    int delete(String id);
 
 }
