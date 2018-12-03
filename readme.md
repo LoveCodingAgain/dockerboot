@@ -22,3 +22,16 @@
 - Redis的客户端使用命令：./redis-cli  auth password.
 - IDEA安装实体类序列化插件.
 - 应用项目启动图标设置.这个网站设置,复制到resources目录即可,链接如下:http://patorjk.com/software/taag/
+- SpringBoot配置日志信息位于资源目录下的logback.xml.常用的标签熟悉掌握使用.以及多环境日志输出配置.使用spring扩展profile支持.命名为logback-spring.xml.
+
+> <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+  <springProfile name="test,dev">
+      <logger name="com.dudu.controller" level="info" />
+  </springProfile>
+  <!-- 生产环境. -->
+  <springProfile name="prod">
+      <logger name="com.dudu.controller" level="ERROR" />
+  </springProfile>
+
+
+  

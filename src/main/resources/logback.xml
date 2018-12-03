@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <property name="log.dir" value="d:/common"/>
-    <timestamp key="byMS" datePattern="yyyyMMddHHmmssSSS"/>
-    <property name="logFormat" value="[%thread-${byMS}] %-5level %C%M:%L %msg %n"/>
-    <!-- 控制台打印日志 -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- 引入配置文件-->
+    <property resource="application.properties"/>
+    <!-- 指定项目名称-->
+    <property name="app.name" value="${app.name:-dockerboot}"/>
+    <!-- 指定日志的path-->
+    <property name="log.path" value="d:/dockerboot/log/"/>
+    <!-- 格式化输出-->
+    <property name="logback_pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger %L  -| %msg%n"/>
+    <!-- 日志级别-->
+    <property name="logback_level" value="${logback.level:-INFO}"/>
+    <!-- 活动日志文件的大小-->
+    <property name="logback_max_file_size" value="${logback.max_file_size:-10MB}"/>
+    <!-- 控制台打印日志,appender,负责写日志的组件 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${logFormat}</pattern>
+            <pattern>${logback_pattern}</pattern>
         </encoder>
     </appender>
     <!-- 日志输出到文件 -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${log.dir}/common.log</file>
+        <file>${log.path}/commons.log</file>
         <encoder>
-            <pattern>${logFormat}</pattern>
+            <pattern>${logback_pattern}</pattern>
         </encoder>
         <append>true</append>
     </appender>
-    <!-- 日志文件按照时间和大小分开记录  满1M分开    -->
+    <!-- 滚动记录日志文件按照时间和大小分开记录 主要用于切分日志文件-->
     <appender name="TIMESIZEROLLFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.dir}/common_time_size.log</file>
+        <file>${log.path}/common_time_size.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.dir}/%d{yyyyMMdd}/common_time_size.log._%i</fileNamePattern>
+            <!-- 定义日志文件的切分方式,这里设置为把每一天的日志归档到一个文件里面-->
+            <fileNamePattern>${log.path}/%d{yyyyMMdd}/common_time_size.log._%i</fileNamePattern>
+            <!-- 日志保存的时间为30天-->
             <maxHistory>30</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
+            <!-- 活动文件的大小-->
+            <maxFileSize>${logback_max_file_size}</maxFileSize>
         </rollingPolicy>
+        <!-- 对日志进行编码-->
         <encoder>
-            <pattern>${logFormat}</pattern>
-            　　　　
+            <pattern>${logback_pattern}</pattern>　　　
         </encoder>
         <append>true</append>
     </appender>
-    <!-- mybait sql 日志 -->
+    <!-- MyBatis SQL 日志 -->
+    <!-- logger是根节点的子节点,name：用来指定约束的包或者是类,level：指定输出级别.addtivity:指定是否向上级传递打印信息-->
     <logger name="java.sql.Connection" level="debug" addtivity="false"/>
     <logger name="java.sql.Statement" level="debug" addtivity="false"/>
     <logger name="java.sql.ResultSet" level="debug" addtivity="false"/>
@@ -40,12 +54,13 @@
     <logger name="com.ibatis.common.jdbc.ScriptRunner" level="debug" addtivity="false"/>
     <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="debug" addtivity="false"/>
     <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="debug" addtivity="false"/>
-    <logger name="com.muou.common.dao" level="debug" addtivity="false"/>
-
-    <root level="info">
-        　　　　
-        <appender-ref ref="STDOUT"/>
+    <!-- logger的配置方式一,不指定appender的方式.本身不打印任何信息的.-->
+    <logger name="com.lixing.docker.dockerboot.controller" level="debug" addtivity="false"/>
+    <!-- 配置根logger标签,添加多个logger-->
+    <root level="${logback_level}">
         <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="TIMESIZEROLLFILE"/>
     </root>
+    <contextName>${app.name}</contextName>
 </configuration>

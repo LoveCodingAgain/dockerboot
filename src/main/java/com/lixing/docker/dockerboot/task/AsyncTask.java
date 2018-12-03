@@ -15,41 +15,41 @@ import java.util.concurrent.Future;
 @Component
 public class AsyncTask {
     @Async
-    public Future<Boolean> task1(){
-         Instant start=Instant.now();
-         try {
-             Thread.sleep(1000);
-         } catch (InterruptedException e) {
-             e.printStackTrace();
-         }
-         Instant end=Instant.now();
-         System.out.println("任务一耗时："+ Duration.between(start,end).toMillis()+"毫秒");
-         return new AsyncResult<>(true);
-     }
+    public Future<Boolean> task1() {
+        Instant start = Instant.now();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Instant end = Instant.now();
+        System.out.println("任务一耗时：" + Duration.between(start, end).toMillis() + "毫秒");
+        return new AsyncResult<>(true);
+    }
 
     @Async
-    public Future<Boolean> task2(){
-        Instant start=Instant.now();
+    public Future<Boolean> task2() {
+        Instant start = Instant.now();
         try {
             Thread.sleep(800);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Instant end=Instant.now();
-        System.out.println("任务二耗时："+ Duration.between(start,end).toMillis()+"毫秒");
+        Instant end = Instant.now();
+        System.out.println("任务二耗时：" + Duration.between(start, end).toMillis() + "毫秒");
         return new AsyncResult<>(true);
     }
 
     @Async
-    public Future<Boolean> task3(){
-        Instant start=Instant.now();
+    public Future<Boolean> task3() {
+        Instant start = Instant.now();
         try {
             Thread.sleep(700);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Instant end=Instant.now();
-        System.out.println("任务三耗时："+ Duration.between(start,end).toMillis()+"毫秒");
+        Instant end = Instant.now();
+        System.out.println("任务三耗时：" + Duration.between(start, end).toMillis() + "毫秒");
         return new AsyncResult<>(true);
     }
 
