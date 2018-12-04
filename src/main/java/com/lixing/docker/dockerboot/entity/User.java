@@ -1,12 +1,10 @@
 package com.lixing.docker.dockerboot.entity;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
-import java.util.Date;
 /**
  * title： com.lx.docker.dockerboot.entity
+ *
  * @author： lixing
  * date： 2018/3/19 11:29
  * description：User实体类
@@ -26,9 +24,9 @@ public class User implements Serializable {
     }
 
     public User(Integer id, String username, Integer age, String ctm) {
-        this.id=id;
+        this.id = id;
         this.username = username;
-        this.age=age;
+        this.age = age;
         this.ctm = ctm;
     }
 

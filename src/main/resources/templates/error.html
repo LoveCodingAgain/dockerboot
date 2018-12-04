@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>【统一异常处理页面】</title>
+</head>
+<body>
+<div align="center">
+    <h3>Exception Message</h3>
+    <div th:text="${url}">发生异常路径:</div>
+    <div th:text="${exception}">发生异常的对象:</div>
+</div>
+</body>
+</html>

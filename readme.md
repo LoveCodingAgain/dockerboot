@@ -32,6 +32,6 @@
   <springProfile name="prod">
       <logger name="com.dudu.controller" level="ERROR" />
   </springProfile>
-
+- SpringBoot整合全局异常处理.使用注解@ControllerAdvice+@ExceptionHandler,返回页面类型和返回json数据.Controller层异常只需要抛出即可,无需捕获了.
 
   
