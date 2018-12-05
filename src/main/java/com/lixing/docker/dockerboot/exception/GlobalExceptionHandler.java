@@ -1,5 +1,4 @@
 package com.lixing.docker.dockerboot.exception;
-
 import com.lixing.docker.dockerboot.entity.ErrorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -22,8 +20,8 @@ public class GlobalExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String DEFAULT_ERROR_VIEW = "error";
 
-    @ExceptionHandler()
-    public ModelAndView defaultExceptionHandler(HttpServletRequest request, Exception exception) {
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultExceptionHandler(HttpServletRequest request, NullPointerException exception) {
         ModelAndView view = new ModelAndView();
         view.addObject("exception", exception);
         view.addObject("url", request.getRequestURL());
@@ -36,10 +34,12 @@ public class GlobalExceptionHandler {
     public ErrorInfo<String> jsonErrorString(HttpServletRequest request, MyException e) {
         ErrorInfo<String> errorInfo = new ErrorInfo<>();
         logger.info("处理自定义异常信息");
+        errorInfo.setMsg("false");
         errorInfo.setMessage(e.getMessage());
         errorInfo.setCode(ErrorInfo.ERROR);
         errorInfo.setData("Error");
         errorInfo.setUrl(request.getRequestURL().toString());
         return errorInfo;
     }
+
 }

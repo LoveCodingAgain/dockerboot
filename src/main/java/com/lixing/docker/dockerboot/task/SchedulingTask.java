@@ -1,11 +1,9 @@
 package com.lixing.docker.dockerboot.task;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  * author: lixing
  * date: 2018-11-25
