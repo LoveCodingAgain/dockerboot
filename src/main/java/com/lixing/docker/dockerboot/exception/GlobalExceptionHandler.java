@@ -1,5 +1,6 @@
 package com.lixing.docker.dockerboot.exception;
 import com.lixing.docker.dockerboot.entity.ErrorInfo;
+import com.lixing.docker.dockerboot.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,7 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 /**
  * author: lixing
  * date: 2018-12-04
@@ -21,10 +23,13 @@ public class GlobalExceptionHandler {
     private static final String DEFAULT_ERROR_VIEW = "error";
 
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultExceptionHandler(HttpServletRequest request, NullPointerException exception) {
+    public ModelAndView defaultExceptionHandler(HttpServletRequest request, HttpServletResponse response, NullPointerException exception) {
         ModelAndView view = new ModelAndView();
+        view.addObject("timestamp", DateUtil.dateUtil(new Date()));
+        view.addObject("status",response.getStatus());
         view.addObject("exception", exception);
         view.addObject("url", request.getRequestURL());
+        view.addObject("trace",exception.getStackTrace());
         view.setViewName(DEFAULT_ERROR_VIEW);
         return view;
     }
@@ -41,5 +46,4 @@ public class GlobalExceptionHandler {
         errorInfo.setUrl(request.getRequestURL().toString());
         return errorInfo;
     }
-
 }

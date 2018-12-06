@@ -2,7 +2,6 @@ package com.lixing.docker.dockerboot.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  * author: lixing
  * date: 2018-12-02

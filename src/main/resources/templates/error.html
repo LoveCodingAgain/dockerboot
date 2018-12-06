@@ -8,9 +8,18 @@
 <div align="center">
     <h3>Exception Message</h3>
     <div>
+        <p th:text="${timestamp}">发生异常时间:</p>
+    </div>
+    <div>
+        <p th:text="${status}">发生异常状态码:</p>
+    </div>
+    <div>
         <p th:text="${url}">发生异常路径:</p></div>
     <div>
         <p th:text="${exception}">发生异常的对象:</p>
+    </div>
+    <div>
+        <p th:text="${trace}">栈值信息:</p>
     </div>
 </div>
 </body>

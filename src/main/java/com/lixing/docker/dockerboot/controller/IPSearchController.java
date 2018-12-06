@@ -1,16 +1,12 @@
 package com.lixing.docker.dockerboot.controller;
-
+import com.alibaba.fastjson.JSON;
 import com.lixing.docker.dockerboot.config.ThirdIpPrpperties;
-import com.lixing.docker.dockerboot.util.HttpClientUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
+import com.lixing.docker.dockerboot.entity.IpMessage;
+import com.lixing.docker.dockerboot.service.impl.IpServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * author: lixing
  * date: 2018-12-04
@@ -22,9 +18,12 @@ import java.util.Map;
 public class IPSearchController {
     @Autowired
     private ThirdIpPrpperties thirdIpPrpperties;
+    @Autowired
+    private IpServiceImpl ipServiceImpl;
 
     @RequestMapping(value = "/search")
-    public String search() throws Exception {
+    @ExceptionHandler(value = Exception.class)
+    public IpMessage search(@RequestParam("ip") String ip) throws Exception {
         String host = thirdIpPrpperties.getHost();
         String path = thirdIpPrpperties.getPath();
         String appCode = thirdIpPrpperties.getAppcode();
@@ -32,12 +31,19 @@ public class IPSearchController {
         Map<String, String> headers = new HashMap();
         headers.put("Authorization", "APPCODE " + appCode);
         Map<String, String> querys = new HashMap();
-        querys.put("ip", "192.168.217.130");
-        HttpResponse response = HttpClientUtils.doGet(host, path, method, headers, querys);
-        // 返回JSON串
-        HttpEntity entity = response.getEntity();
-        String respContent = null;
-        respContent = EntityUtils.toString(entity, "UTF-8");
-        return respContent;
+        querys.put("ip", ip);
+        IpMessage message=new IpMessage();
+        // 返回字符串
+        String respContent = ipServiceImpl.doGet(host, path, method, headers, querys);
+        // JSON串解析为JavaBean
+        IpMessage ipMessage=JSON.parseObject(respContent, IpMessage.class);
+        message.setMsg(ipMessage.getMsg());
+        message.setData(ipMessage.getData());
+        message.setLogId(ipMessage.getLogId());
+        message.setRet(ipMessage.getRet());
+        System.out.println("返回的信息:"+ipMessage.getMsg());
+        System.out.println("返回的LogId:"+ipMessage.getLogId());
+        System.out.println("获取IP城市:"+(ipMessage.getData()==null?null:ipMessage.getData().getCity()));
+        return message;
     }
 }
